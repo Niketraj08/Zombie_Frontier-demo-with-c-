@@ -9,7 +9,6 @@
 #include <ctime>
 #include <cstdlib>
 #include <iomanip>
-
 using namespace std;
 
 const int MAP_W = 28;
