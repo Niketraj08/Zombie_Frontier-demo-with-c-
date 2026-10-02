@@ -23,11 +23,10 @@ int randomInt(int low, int high)
     uniform_int_distribution<int> dist(low, high);
     return dist(rng);
 }
-
 void clearScreen()
 {
 #ifdef _WIN32
-    system("cls");
+   system("cls");
 #else
     system("clear");
 #endif
@@ -102,30 +101,28 @@ struct Player
 };
 
 vector<string> worldMap =
-{
-    "############################",
-    "#..........#...............#",
-    "#.######...#...#######.....#",
-    "#.#....#.......#.....#.....#",
-    "#.#....#####...#.....#.....#",
-    "#.#............#.....#.....#",
-    "#.######..######.....####..#",
-    "#..........................#",
-    "#..####.....######.........#",
-    "#..#..#.....#....#.........#",
-    "#..#..#######....#####.....#",
-    "#..................#.......#",
-    "#..........B.......#.......#",
-    "############################"
-};
+    {
+        "############################",
+        "#..........#...............#",
+        "#.######...#...#######.....#",
+        "#.#....#.......#.....#.....#",
+        "#.#....#####...#.....#.....#",
+        "#.#............#.....#.....#",
+        "#.######..######.....####..#",
+        "#..........................#",
+        "#..####.....######.........#",
+        "#..#..#.....#....#.........#",
+        "#..#..#######....#####.....#",
+        "#..................#.......#",
+        "#..........B.......#.......#",
+        "############################"};
 
 vector<Quest> quests =
-{
-    {"First Blood", "Defeat 3 enemies.", 3, 0, 100, 100, false},
-    {"Hunter", "Defeat 8 enemies.", 8, 0, 250, 250, false},
-    {"Survivor", "Reach level 5.", 5, 0, 500, 500, false},
-    {"Collector", "Collect 500 gold.", 500, 0, 300, 300, false}
-};
+    {
+        {"First Blood", "Defeat 3 enemies.", 3, 0, 100, 100, false},
+        {"Hunter", "Defeat 8 enemies.", 8, 0, 250, 250, false},
+        {"Survivor", "Reach level 5.", 5, 0, 500, 500, false},
+        {"Collector", "Collect 500 gold.", 500, 0, 300, 300, false}};
 
 void printTitle()
 {
@@ -194,15 +191,14 @@ void printCredits()
 void resetQuests()
 {
     quests =
-    {
-        {"First Blood", "Defeat 3 enemies.", 3, 0, 100, 100, false},
-        {"Hunter", "Defeat 8 enemies.", 8, 0, 250, 250, false},
-        {"Survivor", "Reach level 5.", 5, 0, 500, 500, false},
-        {"Collector", "Collect 500 gold.", 500, 0, 300, 300, false}
-    };
+        {
+            {"First Blood", "Defeat 3 enemies.", 3, 0, 100, 100, false},
+            {"Hunter", "Defeat 8 enemies.", 8, 0, 250, 250, false},
+            {"Survivor", "Reach level 5.", 5, 0, 500, 500, false},
+            {"Collector", "Collect 500 gold.", 500, 0, 300, 300, false}};
 }
 
-Player createPlayer(const string& name)
+Player createPlayer(const string &name)
 {
     Player p;
     p.name = name;
@@ -248,7 +244,7 @@ bool isWalkable(int x, int y)
     return worldMap[y][x] != '#';
 }
 
-void drawMap(const Player& p)
+void drawMap(const Player &p)
 {
     clearScreen();
     printTitle();
@@ -277,7 +273,7 @@ void drawMap(const Player& p)
     cout << " | Q Quests | V Save | X Exit\n";
 }
 
-void showStats(const Player& p)
+void showStats(const Player &p)
 {
     clearScreen();
     printTitle();
@@ -314,7 +310,7 @@ void showStats(const Player& p)
     pauseGame();
 }
 
-void showInventory(Player& p)
+void showInventory(Player &p)
 {
     clearScreen();
     printTitle();
@@ -388,7 +384,7 @@ void showInventory(Player& p)
     }
 }
 
-Enemy createRandomEnemy(const Player& p)
+Enemy createRandomEnemy(const Player &p)
 {
     int roll = randomInt(1, 100);
     Enemy e;
@@ -438,7 +434,7 @@ Enemy createRandomEnemy(const Player& p)
     return e;
 }
 
-Enemy createBoss(const Player& p)
+Enemy createBoss(const Player &p)
 {
     Enemy boss;
     boss.name = "THE NECRO LORD";
@@ -452,9 +448,9 @@ Enemy createBoss(const Player& p)
     return boss;
 }
 
-void updateQuests(Player& p)
+void updateQuests(Player &p)
 {
-    for (auto& q : quests)
+    for (auto &q : quests)
     {
         if (q.name == "First Blood")
             q.progress = p.kills;
@@ -481,7 +477,7 @@ void updateQuests(Player& p)
     }
 }
 
-void levelUp(Player& p)
+void levelUp(Player &p)
 {
     int needed = p.level * 100;
 
@@ -503,7 +499,7 @@ void levelUp(Player& p)
     updateQuests(p);
 }
 
-void enemyAttack(Player& p, Enemy& e)
+void enemyAttack(Player &p, Enemy &e)
 {
     int raw = e.damage + randomInt(-3, 5);
     int damage = max(1, raw - p.armor);
@@ -521,9 +517,9 @@ void enemyAttack(Player& p, Enemy& e)
         p.hp = 0;
 }
 
-bool playerAttack(Player& p, Enemy& e)
+bool playerAttack(Player &p, Enemy &e)
 {
-    Weapon& weapon = p.weapons[p.weaponIndex];
+    Weapon &weapon = p.weapons[p.weaponIndex];
 
     if (weapon.ammo <= 0)
     {
@@ -555,9 +551,9 @@ bool playerAttack(Player& p, Enemy& e)
     return true;
 }
 
-void reloadWeapon(Player& p)
+void reloadWeapon(Player &p)
 {
-    Weapon& weapon = p.weapons[p.weaponIndex];
+    Weapon &weapon = p.weapons[p.weaponIndex];
 
     if (weapon.ammo == weapon.maxAmmo)
     {
@@ -571,7 +567,7 @@ void reloadWeapon(Player& p)
     cout << "Reloaded " << weapon.name << ".\n";
 }
 
-bool combat(Player& p, Enemy e)
+bool combat(Player &p, Enemy e)
 {
     clearScreen();
     printTitle();
@@ -746,7 +742,7 @@ bool combat(Player& p, Enemy e)
     return true;
 }
 
-void showQuests(const Player& p)
+void showQuests(const Player &p)
 {
     clearScreen();
     printTitle();
@@ -754,9 +750,10 @@ void showQuests(const Player& p)
     cout << "\nQUEST LOG\n";
     cout << "------------------------------------------------------------\n";
 
-    for (const auto& q : quests)
+    for (const auto &q : quests)
     {
-        cout << "\n" << q.name << '\n';
+        cout << "\n"
+             << q.name << '\n';
         cout << q.description << '\n';
         cout << "Progress: " << q.progress << "/" << q.target << '\n';
 
@@ -769,7 +766,7 @@ void showQuests(const Player& p)
     pauseGame();
 }
 
-void healAtCamp(Player& p)
+void healAtCamp(Player &p)
 {
     clearScreen();
     printTitle();
@@ -787,7 +784,7 @@ void healAtCamp(Player& p)
     pauseGame();
 }
 
-void shop(Player& p)
+void shop(Player &p)
 {
     while (true)
     {
@@ -901,7 +898,7 @@ void shop(Player& p)
     }
 }
 
-void randomEvent(Player& p)
+void randomEvent(Player &p)
 {
     int event = randomInt(1, 100);
 
@@ -939,7 +936,7 @@ void randomEvent(Player& p)
     }
 }
 
-void tryMove(Player& p, char direction)
+void tryMove(Player &p, char direction)
 {
     int nx = p.x;
     int ny = p.y;
@@ -977,7 +974,7 @@ void tryMove(Player& p, char direction)
     }
 }
 
-void bossFight(Player& p)
+void bossFight(Player &p)
 {
     clearScreen();
     printTitle();
@@ -1005,7 +1002,7 @@ void bossFight(Player& p)
     }
 }
 
-bool saveGame(const Player& p, const string& filename)
+bool saveGame(const Player &p, const string &filename)
 {
     ofstream out(filename);
 
@@ -1033,7 +1030,7 @@ bool saveGame(const Player& p, const string& filename)
 
     out << p.weapons.size() << '\n';
 
-    for (const auto& w : p.weapons)
+    for (const auto &w : p.weapons)
     {
         out << w.name << '\n';
         out << w.damage << '\n';
@@ -1044,7 +1041,7 @@ bool saveGame(const Player& p, const string& filename)
 
     out << p.inventory.size() << '\n';
 
-    for (const auto& item : p.inventory)
+    for (const auto &item : p.inventory)
         out << item << '\n';
 
     out.close();
@@ -1052,7 +1049,7 @@ bool saveGame(const Player& p, const string& filename)
     return true;
 }
 
-bool loadGame(Player& p, const string& filename)
+bool loadGame(Player &p, const string &filename)
 {
     ifstream in(filename);
 
@@ -1115,7 +1112,7 @@ bool loadGame(Player& p, const string& filename)
     return true;
 }
 
-void saveGameMenu(Player& p)
+void saveGameMenu(Player &p)
 {
     clearScreen();
     printTitle();
@@ -1150,7 +1147,7 @@ void saveGameMenu(Player& p)
     pauseGame();
 }
 
-bool loadGameMenu(Player& p)
+bool loadGameMenu(Player &p)
 {
     clearScreen();
     printTitle();
@@ -1189,7 +1186,7 @@ bool loadGameMenu(Player& p)
     return false;
 }
 
-void changeWeapon(Player& p)
+void changeWeapon(Player &p)
 {
     clearScreen();
     printTitle();
@@ -1224,7 +1221,7 @@ void changeWeapon(Player& p)
     pauseGame();
 }
 
-void rest(Player& p)
+void rest(Player &p)
 {
     clearScreen();
     printTitle();
@@ -1276,7 +1273,7 @@ bool confirmExit()
     return choice == 'y' || choice == 'Y';
 }
 
-void checkSpecialTile(Player& p)
+void checkSpecialTile(Player &p)
 {
     char tile = worldMap[p.y][p.x];
 
@@ -1295,7 +1292,7 @@ void checkSpecialTile(Player& p)
     }
 }
 
-void randomShopEncounter(Player& p)
+void randomShopEncounter(Player &p)
 {
     if (randomInt(1, 100) <= 5)
     {
@@ -1306,7 +1303,7 @@ void randomShopEncounter(Player& p)
     }
 }
 
-void gameLoop(Player& p)
+void gameLoop(Player &p)
 {
     resetQuests();
 
@@ -1433,18 +1430,17 @@ void gameTips()
     printTitle();
 
     vector<string> tips =
-    {
-        "Save often before entering dangerous areas.",
-        "Heavy attacks consume energy but deal huge damage.",
-        "Grenades are especially useful against bosses.",
-        "Upgrade armor if enemies start hitting too hard.",
-        "The Plasma Gun is expensive but extremely powerful.",
-        "Potions can turn a losing battle around.",
-        "Complete quests for extra gold and XP.",
-        "Explore the entire map to find random events.",
-        "The final boss requires level 5.",
-        "Running is not possible against the final boss."
-    };
+        {
+            "Save often before entering dangerous areas.",
+            "Heavy attacks consume energy but deal huge damage.",
+            "Grenades are especially useful against bosses.",
+            "Upgrade armor if enemies start hitting too hard.",
+            "The Plasma Gun is expensive but extremely powerful.",
+            "Potions can turn a losing battle around.",
+            "Complete quests for extra gold and XP.",
+            "Explore the entire map to find random events.",
+            "The final boss requires level 5.",
+            "Running is not possible against the final boss."};
 
     cout << "\nSURVIVAL TIPS\n";
     cout << "------------------------------------------------------------\n";
@@ -1531,27 +1527,26 @@ void extraMenu()
     }
 }
 
-
-int calculateCriticalChance(const Player& p)
+int calculateCriticalChance(const Player &p)
 {
     return min(35, 10 + p.level * 2);
 }
 
-int calculatePlayerDefense(const Player& p)
+int calculatePlayerDefense(const Player &p)
 {
     return p.armor + p.level;
 }
 
-int calculateWeaponPower(const Player& p)
+int calculateWeaponPower(const Player &p)
 {
     if (p.weaponIndex < 0 || p.weaponIndex >= static_cast<int>(p.weapons.size()))
         return 0;
     return p.weapons[p.weaponIndex].damage;
 }
 
-bool hasWeapon(const Player& p, const string& name)
+bool hasWeapon(const Player &p, const string &name)
 {
-    for (const auto& weapon : p.weapons)
+    for (const auto &weapon : p.weapons)
     {
         if (weapon.name == name)
             return true;
@@ -1559,7 +1554,7 @@ bool hasWeapon(const Player& p, const string& name)
     return false;
 }
 
-void giveBonus(Player& p, int gold, int xp)
+void giveBonus(Player &p, int gold, int xp)
 {
     p.gold += gold;
     p.xp += xp;
@@ -1567,13 +1562,13 @@ void giveBonus(Player& p, int gold, int xp)
     levelUp(p);
 }
 
-void repairWeapons(Player& p)
+void repairWeapons(Player &p)
 {
-    for (auto& weapon : p.weapons)
+    for (auto &weapon : p.weapons)
         weapon.ammo = weapon.maxAmmo;
 }
 
-void emergencyRecovery(Player& p)
+void emergencyRecovery(Player &p)
 {
     if (p.hp <= 20 && p.potions > 0)
     {
@@ -1582,21 +1577,21 @@ void emergencyRecovery(Player& p)
     }
 }
 
-int totalWeaponDamage(const Player& p)
+int totalWeaponDamage(const Player &p)
 {
     int total = 0;
 
-    for (const auto& weapon : p.weapons)
+    for (const auto &weapon : p.weapons)
         total += weapon.damage;
 
     return total;
 }
 
-int countFullMagazines(const Player& p)
+int countFullMagazines(const Player &p)
 {
     int count = 0;
 
-    for (const auto& weapon : p.weapons)
+    for (const auto &weapon : p.weapons)
     {
         if (weapon.ammo == weapon.maxAmmo)
             count++;
@@ -1605,7 +1600,7 @@ int countFullMagazines(const Player& p)
     return count;
 }
 
-void debugPlayer(const Player& p)
+void debugPlayer(const Player &p)
 {
     cout << "DEBUG PLAYER\n";
     cout << "Name: " << p.name << '\n';
@@ -1617,17 +1612,17 @@ void debugPlayer(const Player& p)
     cout << "Armor: " << p.armor << '\n';
 }
 
-bool isBossArea(const Player& p)
+bool isBossArea(const Player &p)
 {
     return worldMap[p.y][p.x] == 'B';
 }
 
-int distanceFromStart(const Player& p)
+int distanceFromStart(const Player &p)
 {
     return abs(p.x - 1) + abs(p.y - 1);
 }
 
-void awardExplorationXP(Player& p)
+void awardExplorationXP(Player &p)
 {
     int distance = distanceFromStart(p);
 
@@ -1638,37 +1633,37 @@ void awardExplorationXP(Player& p)
     }
 }
 
-void consumeEnergy(Player& p, int amount)
+void consumeEnergy(Player &p, int amount)
 {
     p.energy = max(0, p.energy - amount);
 }
 
-bool canUseHeavyAttack(const Player& p)
+bool canUseHeavyAttack(const Player &p)
 {
     return p.energy >= 25;
 }
 
-bool canUseGrenade(const Player& p)
+bool canUseGrenade(const Player &p)
 {
     return p.grenades > 0;
 }
 
-bool canUsePotion(const Player& p)
+bool canUsePotion(const Player &p)
 {
     return p.potions > 0 && p.hp < p.maxHp;
 }
 
-void refillEnergy(Player& p)
+void refillEnergy(Player &p)
 {
     p.energy = MAX_ENERGY;
 }
 
-void addInventoryItem(Player& p, const string& item)
+void addInventoryItem(Player &p, const string &item)
 {
     p.inventory.push_back(item);
 }
 
-bool removeInventoryItem(Player& p, const string& item)
+bool removeInventoryItem(Player &p, const string &item)
 {
     auto it = find(p.inventory.begin(), p.inventory.end(), item);
 
@@ -1679,12 +1674,12 @@ bool removeInventoryItem(Player& p, const string& item)
     return true;
 }
 
-int inventoryCount(const Player& p)
+int inventoryCount(const Player &p)
 {
     return static_cast<int>(p.inventory.size());
 }
 
-void printWeaponDetails(const Weapon& w)
+void printWeaponDetails(const Weapon &w)
 {
     cout << "\nWeapon: " << w.name << '\n';
     cout << "Damage: " << w.damage << '\n';
@@ -1692,7 +1687,7 @@ void printWeaponDetails(const Weapon& w)
     cout << "Cost: " << w.cost << '\n';
 }
 
-void printEnemyDetails(const Enemy& e)
+void printEnemyDetails(const Enemy &e)
 {
     cout << "\nEnemy: " << e.name << '\n';
     cout << "HP: " << e.hp << "/" << e.maxHp << '\n';
@@ -1702,22 +1697,22 @@ void printEnemyDetails(const Enemy& e)
     cout << "XP: " << e.xp << '\n';
 }
 
-int estimateEnemyThreat(const Enemy& e)
+int estimateEnemyThreat(const Enemy &e)
 {
     return e.hp + e.damage * 5 + e.defense * 3;
 }
 
-int estimatePlayerPower(const Player& p)
+int estimatePlayerPower(const Player &p)
 {
     return p.maxHp + p.armor * 5 + calculateWeaponPower(p) * 4 + p.level * 20;
 }
 
-bool isPlayerStrongEnough(const Player& p, const Enemy& e)
+bool isPlayerStrongEnough(const Player &p, const Enemy &e)
 {
     return estimatePlayerPower(p) >= estimateEnemyThreat(e);
 }
 
-void displayBattleAdvice(const Player& p, const Enemy& e)
+void displayBattleAdvice(const Player &p, const Enemy &e)
 {
     if (isPlayerStrongEnough(p, e))
         cout << "Battle advice: You have a reasonable chance.\n";
@@ -1730,12 +1725,12 @@ int getLevelRequirementForBoss()
     return 5;
 }
 
-bool bossUnlocked(const Player& p)
+bool bossUnlocked(const Player &p)
 {
     return p.level >= getLevelRequirementForBoss();
 }
 
-void printBossRequirement(const Player& p)
+void printBossRequirement(const Player &p)
 {
     cout << "Boss requirement: Level " << getLevelRequirementForBoss() << ".\n";
 
@@ -1750,12 +1745,12 @@ int getExperienceRequirement(int level)
     return max(100, level * 100);
 }
 
-int getMissingExperience(const Player& p)
+int getMissingExperience(const Player &p)
 {
     return max(0, getExperienceRequirement(p.level) - p.xp);
 }
 
-void printProgress(const Player& p)
+void printProgress(const Player &p)
 {
     cout << "Level: " << p.level << '\n';
     cout << "XP: " << p.xp << "/" << getExperienceRequirement(p.level) << '\n';
@@ -1771,7 +1766,7 @@ void printMapLegend()
     cout << "B Boss Area\n";
 }
 
-bool isNearBoss(const Player& p)
+bool isNearBoss(const Player &p)
 {
     int bx = -1;
     int by = -1;
@@ -1794,7 +1789,7 @@ bool isNearBoss(const Player& p)
     return abs(p.x - bx) + abs(p.y - by) <= 2;
 }
 
-void bossWarning(const Player& p)
+void bossWarning(const Player &p)
 {
     if (isNearBoss(p) && !bossUnlocked(p))
     {
@@ -1807,7 +1802,7 @@ int countCompletedQuests()
 {
     int count = 0;
 
-    for (const auto& q : quests)
+    for (const auto &q : quests)
     {
         if (q.completed)
             count++;
@@ -1820,7 +1815,7 @@ int totalQuestRewards()
 {
     int total = 0;
 
-    for (const auto& q : quests)
+    for (const auto &q : quests)
         total += q.rewardGold + q.rewardXp;
 
     return total;
@@ -1833,7 +1828,7 @@ void printQuestSummary()
     cout << "Total possible rewards: " << totalQuestRewards() << '\n';
 }
 
-void restoreDefaultWeapons(Player& p)
+void restoreDefaultWeapons(Player &p)
 {
     if (p.weapons.empty())
     {
@@ -1844,7 +1839,7 @@ void restoreDefaultWeapons(Player& p)
     }
 }
 
-void validatePlayer(Player& p)
+void validatePlayer(Player &p)
 {
     p.hp = max(0, min(p.hp, p.maxHp));
     p.energy = max(0, min(p.energy, MAX_ENERGY));
@@ -1868,7 +1863,7 @@ void validatePlayer(Player& p)
     }
 }
 
-void saveCheckpoint(Player& p)
+void saveCheckpoint(Player &p)
 {
     validatePlayer(p);
 
@@ -1876,7 +1871,7 @@ void saveCheckpoint(Player& p)
         cout << "Checkpoint saved.\n";
 }
 
-bool loadCheckpoint(Player& p)
+bool loadCheckpoint(Player &p)
 {
     if (!loadGame(p, "zombie_checkpoint.dat"))
         return false;
@@ -1903,12 +1898,12 @@ int applyDefense(int damage, int defense)
     return max(1, damage - defense);
 }
 
-int calculateGoldDrop(const Enemy& e)
+int calculateGoldDrop(const Enemy &e)
 {
     return max(0, e.gold + randomInt(-5, 10));
 }
 
-int calculateXpDrop(const Enemy& e)
+int calculateXpDrop(const Enemy &e)
 {
     return max(0, e.xp + randomInt(-5, 10));
 }
@@ -1919,19 +1914,19 @@ bool rollChance(int percentage)
     return randomInt(1, 100) <= percentage;
 }
 
-void awardKillScore(Player& p, const Enemy& e)
+void awardKillScore(Player &p, const Enemy &e)
 {
     int value = e.boss ? 1000 : 100;
     p.score += value;
 }
 
-void registerKill(Player& p, const Enemy& e)
+void registerKill(Player &p, const Enemy &e)
 {
     p.kills++;
     awardKillScore(p, e);
 }
 
-void grantEnemyRewards(Player& p, const Enemy& e)
+void grantEnemyRewards(Player &p, const Enemy &e)
 {
     p.gold += calculateGoldDrop(e);
     p.xp += calculateXpDrop(e);
@@ -1939,7 +1934,7 @@ void grantEnemyRewards(Player& p, const Enemy& e)
     levelUp(p);
 }
 
-void randomLoot(Player& p)
+void randomLoot(Player &p)
 {
     int roll = randomInt(1, 100);
 
@@ -1960,7 +1955,7 @@ void randomLoot(Player& p)
     }
 }
 
-void printEndGameStats(const Player& p)
+void printEndGameStats(const Player &p)
 {
     cout << "\nFINAL STATISTICS\n";
     cout << "Name: " << p.name << '\n';
@@ -2005,7 +2000,7 @@ void printSeparator()
     cout << "============================================================\n";
 }
 
-void printSmallBanner(const string& text)
+void printSmallBanner(const string &text)
 {
     printDivider();
     cout << text << '\n';
@@ -2036,7 +2031,7 @@ void setTile(int x, int y, char tile)
         worldMap[y][x] = tile;
 }
 
-bool hasLineOfSight(const Player& p, int tx, int ty)
+bool hasLineOfSight(const Player &p, int tx, int ty)
 {
     int dx = abs(tx - p.x);
     int dy = abs(ty - p.y);
@@ -2049,17 +2044,17 @@ int calculateTravelCost(int distance)
     return max(0, distance * 2);
 }
 
-bool canTravel(const Player& p, int distance)
+bool canTravel(const Player &p, int distance)
 {
     return p.energy >= calculateTravelCost(distance);
 }
 
-void travelEnergy(Player& p, int distance)
+void travelEnergy(Player &p, int distance)
 {
     p.energy = max(0, p.energy - calculateTravelCost(distance));
 }
 
-void discoverArea(Player& p)
+void discoverArea(Player &p)
 {
     if (randomInt(1, 100) <= 10)
     {
@@ -2070,7 +2065,7 @@ void discoverArea(Player& p)
     }
 }
 
-void movementPostProcess(Player& p)
+void movementPostProcess(Player &p)
 {
     discoverArea(p);
     awardExplorationXP(p);
@@ -2085,7 +2080,7 @@ void printSystemInfo()
     cout << "Boss Level: " << getLevelRequirementForBoss() << '\n';
 }
 
-void showDeveloperMenu(Player& p)
+void showDeveloperMenu(Player &p)
 {
     while (true)
     {
@@ -2158,7 +2153,7 @@ void extendedHelp()
     pauseGame();
 }
 
-void showStatisticsMenu(const Player& p)
+void showStatisticsMenu(const Player &p)
 {
     while (true)
     {
@@ -2253,7 +2248,7 @@ void welcomeSequence()
     pauseGame();
 }
 
-void gameSessionSummary(const Player& p)
+void gameSessionSummary(const Player &p)
 {
     cout << "\nSESSION SUMMARY\n";
     printDivider();
@@ -2264,13 +2259,13 @@ void gameSessionSummary(const Player& p)
     cout << "Score: " << p.score << '\n';
 }
 
-bool safeSave(Player& p)
+bool safeSave(Player &p)
 {
     validatePlayer(p);
     return saveGame(p, "zombie_autosave.dat");
 }
 
-void autosave(Player& p)
+void autosave(Player &p)
 {
     if (safeSave(p))
         cout << "Autosave complete.\n";
