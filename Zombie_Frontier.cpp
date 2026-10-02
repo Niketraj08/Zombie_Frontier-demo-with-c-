@@ -75,7 +75,6 @@ struct Quest
     int rewardXp;
     bool completed;
 };
-
 struct Player
 {
     string name;
