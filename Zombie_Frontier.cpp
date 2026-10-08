@@ -115,7 +115,7 @@ vector<string> worldMap =
         "#..................#.......#",
         "#..........B.......#.......#",
         "############################"};
-
+// this is a demo digram to use zombai code demo in terminal
 vector<Quest> quests =
     {
         {"First Blood", "Defeat 3 enemies.", 3, 0, 100, 100, false},
