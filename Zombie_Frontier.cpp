@@ -10,7 +10,7 @@
 #include <cstdlib>
 #include <iomanip>
 using namespace std;
-
+// add some point to fix the erro problem
 const int MAP_W = 28;
 const int MAP_H = 14;
 const int MAX_HP = 100;
